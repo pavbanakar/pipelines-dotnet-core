@@ -10,7 +10,8 @@ strategy:
       imageName: "vs2017-win2016"
   maxParallel: 2
 
-pool: $(imageName)
+pool: 
+  vmImage:  $(imageName)
 
 variables:
   buildConfiguration: 'Release'
