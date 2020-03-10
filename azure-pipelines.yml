@@ -1,9 +1,4 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
-trigger:
+pr:
 - master
 - release/*
 
@@ -14,12 +9,12 @@ strategy:
     windows:
       imageName: "vs2017-win2016"
   maxParallel: 2
-pool:
-  vmImage: $(imageName)
+
+pool: $(imageName)
 
 variables:
   buildConfiguration: 'Release'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'Build in Release mode'
