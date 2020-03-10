@@ -1,21 +1,24 @@
-pr:
+trigger:
 - master
 - release/*
 
-strategy:
-  matrix:
-    linux:
-      imageName: "ubuntu-latest"
-    windows:
-      imageName: "vs2017-win2016"
-  maxParallel: 2
+jobs:
+  - job: buildOnLinux
+    pool:
+      vmImage: "ubuntu-latest"
+    variables:
+      buildConfiguration: 'Release'
+    steps:
+      - script: dotnet build --configuration $(buildConfiguration)
+        displayName: "Release build on Linux"
+      - script:  echo Done building in release mode
 
-pool: 
-  vmImage:  $(imageName)
-
-variables:
-  buildConfiguration: 'Release'
-
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'Build'
+  - job: buildOnWindows
+    pool:
+      vmImage: "vs2017-win2016"
+    variables:
+      buildConfiguration: 'Debug'
+    steps:
+      - script: dotnet build --configuration $(buildConfiguration)
+        displayName: "Debug build on Linux"
+      - script:  echo Done building in debug mode     
