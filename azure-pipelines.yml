@@ -18,4 +18,4 @@ variables:
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'Build in Release mode'
+  displayName: 'Build'
